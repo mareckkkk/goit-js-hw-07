@@ -1,23 +1,20 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 const gallery = document.querySelector(".gallery");
-// tworzenie elementów galerii
+
 const markup = galleryItems
 	.map(
-		(image) => `<a class="gallery__item" href="${image.original}">
-  <img class="gallery__image" src="${image.preview}" alt="${image.description}" />
-</a>
-</li>`
+		({ preview, description, original }) =>
+			`<a class="gallery__item" href="${original}">
+            <img class="gallery__image" src="${preview}" alt="${description}" />
+        </a>`
 	)
 	.join("");
-gallery.insertAdjacentHTML("afterbegin", markup);
 
-//wyszukanie elementów galerii dla skryptu SimpleLightbox
-const galleryImages = document.querySelectorAll(".gallery__item");
+gallery.insertAdjacentHTML("beforeend", markup);
 
-//inicjalizacja biblioteki SimpleLightboxs
-new SimpleLightbox(galleryImages, {
+const lightbox = new SimpleLightbox(".gallery a", {
 	captionsData: "alt",
 	captionDelay: 250,
 	captionPosition: "bottom",

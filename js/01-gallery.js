@@ -21,10 +21,14 @@ const markup = galleryItems
 	)
     .join("");
     
-gallery.insertAdjacentHTML("afterbegin", markup);
+gallery.insertAdjacentHTML("beforeend", markup);
 
 function handleClick(event) {
 	event.preventDefault();
+
+	if (event.target.nodeName !== "IMG") {
+		return;
+	}
 	const selectedImage = event.target.dataset.source;
 	instance = basicLightbox.create(
 		`<img width="1400" height="900" src="${selectedImage}">`
